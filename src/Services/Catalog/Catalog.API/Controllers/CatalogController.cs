@@ -62,7 +62,7 @@ namespace Catalog.API.Controllers
         [HttpPut]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<IActionResult> UpdateProduct([FromBody] Product product)      //We use IActionResult instead of ActionResult
-                                                                                        //becoz there's no response waiting fromm result
+                                                                                        //becoz there's no response waiting from result
         {
             var result = await _repo.UpdateProduct(product);
             return Ok(result);
@@ -70,8 +70,7 @@ namespace Catalog.API.Controllers
 
         [HttpDelete("{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> DeleteProduct(string id)      //We use IActionResult instead of ActionResult
-                                                                                        //becoz there's no response waiting fromm result
+        public async Task<IActionResult> DeleteProduct(string id) 
         {
             var result = await _repo.DeleteProduct(id);
             return Ok(result);
