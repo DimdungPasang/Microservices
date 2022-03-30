@@ -14,12 +14,12 @@ namespace Discount.API.Repositories
         {
             _configuration = configuration;
         } 
-        public async Task<Coupon> GetCoupon(string productName)
+        public async Task<Coupon> GetDiscount(string productName)
         {
             using var connection = new NpgsqlConnection(_configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
 
             var coupon = await connection.QueryFirstOrDefaultAsync<Coupon>
-                ("SELECT * FROM Coupon WHERE ProductName = @Product", new { ProductName = productName});
+                ("SELECT * FROM Coupon WHERE ProductName = @ProductName", new { ProductName = productName});
 
             if(coupon == null)
             {
@@ -31,7 +31,7 @@ namespace Discount.API.Repositories
         }
 
 
-        public async Task<bool> CreateCoupon(Coupon coupon)
+        public async Task<bool> CreateDiscount(Coupon coupon)
         {
             using var connection = new NpgsqlConnection(_configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
 
@@ -51,12 +51,12 @@ namespace Discount.API.Repositories
             return true;
         }
 
-        public async Task<bool> UpdateCoupon(Coupon coupon)
+        public async Task<bool> UpdateDiscount(Coupon coupon)
         {
             using var connection = new NpgsqlConnection(_configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
 
             var affected = await connection.ExecuteAsync
-                ("UPDATE Coupon SET ProductName @ProductName, Description= @Description, Amount = @Amount WHERE Id = @Id) ", new Coupon
+                ("UPDATE Coupon SET ProductName = @ProductName, Description = @Description, Amount = @Amount WHERE Id = @Id", new Coupon
                 {
                     Id = coupon.Id,   
                     ProductName = coupon.ProductName,
@@ -72,12 +72,12 @@ namespace Discount.API.Repositories
             return true;
         }
 
-        public async Task<bool> DeleteCoupon(string productName)
+        public async Task<bool> DeleteDiscount(string productName)
         {
             using var connection = new NpgsqlConnection(_configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
 
             var affected = await connection.ExecuteAsync
-                ("DELETE FROM Coupon WHERE ProductName = @ProductName) ", new 
+                ("DELETE FROM Coupon WHERE ProductName = @ProductName ", new 
                 {
                     ProductName = productName
                 });

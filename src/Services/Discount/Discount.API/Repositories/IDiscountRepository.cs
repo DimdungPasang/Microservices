@@ -5,9 +5,9 @@ namespace Discount.API.Repositories
 {
     public interface IDiscountRepository
     {
-        Task<Coupon> GetCoupon(string productName);
-        Task<bool> CreateCoupon(Coupon coupon);
-        Task<bool> UpdateCoupon(Coupon coupon);
-        Task<bool> DeleteCoupon(string productName);
+        Task<Coupon> GetDiscount(string productName);
+        Task<bool> CreateDiscount(Coupon coupon);
+        Task<bool> UpdateDiscount(Coupon coupon);
+        Task<bool> DeleteDiscount(string productName);
     }
 }
