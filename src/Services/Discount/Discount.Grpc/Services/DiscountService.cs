@@ -1,26 +1,24 @@
+using AutoMapper;
+using Discount.Grpc.Entities;
+using Discount.Grpc.Protos;
+using Discount.Grpc.Repositories;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Discount.Grpc.Protos;
-using Discount.Grpc.Repositories;
-using AutoMapper;
-using Discount.Grpc.Entities;
 
-namespace Discount.Grpc
+namespace Discount.Grpc.Services
 {
     public class DiscountService : DiscountProtoService.DiscountProtoServiceBase
     {
-        private readonly ILogger<DiscountService> _logger;
         private readonly IDiscountRepository _repository;
         private readonly IMapper _mapper;
+        private readonly ILogger<DiscountService> _logger;
 
-        public DiscountService(ILogger<DiscountService> logger, IDiscountRepository repository, IMapper mapper)
+        public DiscountService(IDiscountRepository repository, ILogger<DiscountService> logger, IMapper mapper)
         {
-            _logger = logger;
-            _repository = repository;
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _mapper = mapper;
         }
 
